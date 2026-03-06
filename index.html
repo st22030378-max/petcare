@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PetCare</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="manifest" href="manifest.json">
+</head>
+<body>
+
+<header>
+<h1>🐾 PetCare</h1>
+<p>Guía básica para cuidar tus mascotas</p>
+</header>
+
+<button id="chatBtn">💬</button>
+
+<div id="chatBox">
+  <div id="messages"></div>
+  <input type="text" id="userInput" placeholder="Escribe algo..." />
+  <button onclick="sendMessage()">Enviar</button>
+</div>
+
+<main>
+<section class="cards">
+
+<div class="card">
+<h2>🐶 Perros</h2>
+<p>Consejos de cuidado, alimentación y ejercicio.</p>
+</div>
+
+<div class="card">
+<h2>🐱 Gatos</h2>
+<p>Todo sobre higiene, comida y salud.</p>
+</div>
+
+<div class="card">
+<h2>🦜 Aves</h2>
+<p>Cuidados básicos para aves domésticas.</p>
+</div>
+
+<div class="card">
+<h2>🐟 Peces</h2>
+<p>Cómo mantener un acuario saludable.</p>
+</div>
+
+</section>
+</main>
+
+<script src="app.js"></script>
+
+</body>
+</html>
