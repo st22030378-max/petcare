@@ -8,62 +8,63 @@ chatBtn.onclick = () => {
 
 async function sendMessage(){
 
-const input = document.getElementById("userInput");
-const messages = document.getElementById("messages");
+  const input = document.getElementById("userInput");
+  const messages = document.getElementById("messages");
 
-let userText = input.value;
+  let userText = input.value.trim();
 
-if(userText === "") return;
+  if(userText === "") return;
 
-messages.innerHTML += "<p><b>Tú:</b> " + userText + "</p>";
+  messages.innerHTML += `<p><b>Tú:</b> ${userText}</p>`;
 
-input.value = "";
+  input.value = "";
 
-try{
+  try{
 
-const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-  method: "POST",
-  headers: {
-    "Authorization": "Bearer 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",
-    "Content-Type": "application/json",
-    "HTTP-Referer": "http://localhost",
-    "X-Title": "PetCare"
-  },
-  body: JSON.stringify({
-   model: "meta-llama/llama-3-8b-instruct",
-    messages: [
-      {
-        role: "system",
-        content: "Eres un asistente que ayuda con cuidados de mascotas."
+    const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Authorization": "Bearer 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",
+        "Content-Type": "application/json",
+        "HTTP-Referer": "https://st22030378-max.github.io/petcare/",
+        "X-Title": "PetCare PWA"
       },
-      {
-        role: "user",
-        content: userText
-      }
-    ]
-  })
-});
+      body: JSON.stringify({
+        model: "meta-llama/llama-3-8b-instruct",
+        messages: [
+          {
+            role: "system",
+            content: "Eres un asistente experto en cuidado de mascotas (perros, gatos, aves y peces). Responde de forma clara y útil."
+          },
+          {
+            role: "user",
+            content: userText
+          }
+        ],
+        temperature: 0.7,
+        max_tokens: 300
+      })
+    });
 
-const data = await response.json();
+    const data = await response.json();
 
-console.log("Respuesta completa:", data);
-console.log("Error exacto:", data.error);
+    if(!response.ok){
+      messages.innerHTML += `<p><b>Error API:</b> ${data.error?.message || "Error desconocido"}</p>`;
+      return;
+    }
 
-if(data.error){
-messages.innerHTML += "<p><b>Error API:</b> " + data.error.message + "</p>";
-return;
-}
+    const aiReply = data.choices[0].message.content;
 
-const aiReply = data.choices[0].message.content;
+    messages.innerHTML += `<p><b>PetCare Bot:</b> ${aiReply}</p>`;
 
-messages.innerHTML += "<p><b>PetCare Bot:</b> " + aiReply + "</p>";
+    messages.scrollTop = messages.scrollHeight;
 
-}catch(error){
+  }catch(error){
 
-console.log("Error de conexión:", error);
+    console.error("Error de conexión:", error);
 
-messages.innerHTML += "<p><b>Error:</b> No se pudo conectar con el bot.</p>";
+    messages.innerHTML += `<p><b>Error:</b> No se pudo conectar con el bot.</p>`;
 
-}
+  }
 
 }
