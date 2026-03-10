@@ -26,8 +26,8 @@ async function sendMessage(){
       headers: {
         "Authorization": "Bearer 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",
         "Content-Type": "application/json",
-        "HTTP-Referer": "https://st22030378-max.github.io/petcare/",
-        "X-Title": "PetCare PWA"
+        "HTTP-Referer":  window.location.href,
+        "X-Title": "PetCare"
       },
       body: JSON.stringify({
         model: "meta-llama/llama-3-8b-instruct",
