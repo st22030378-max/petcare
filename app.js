@@ -26,7 +26,7 @@ async function sendMessage(){
       headers: {
         "Authorization": "Bearer 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",
         "Content-Type": "application/json",
-        "HTTP-Referer":  window.location.href,
+        "HTTP-Referer": window.location.origin,
         "X-Title": "PetCare"
       },
       body: JSON.stringify({
